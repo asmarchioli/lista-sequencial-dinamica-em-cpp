@@ -43,10 +43,11 @@ int tamanhoEmBytes(LISTA* l) {
 } /* tamanhoEmBytes */
 
 bool redimensionar(LISTA* l) {
-  if (l->nroElem-1 < l->MAX){
-    int novaCapacidade = l->MAX * 0.25;
+  int novaCapacidade;
+  if (l->nroElem-1 <= l->MAX/2){
+    novaCapacidade = l->MAX * 0.5;
   } else if (l->nroElem == l->MAX) {
-    int novaCapacidade = l->MAX * 2;
+    novaCapacidade = l->MAX * 2;
   } else return false;
   REGISTRO* newA = (REGISTRO*) realloc(l->A, novaCapacidade * sizeof(REGISTRO));
   if (newA == NULL) {
@@ -80,6 +81,7 @@ TIPOCHAVE enesimoElem(LISTA* l, int n) {
 
 /* Reinicializar a estrutura */
 void reinicializarLista(LISTA* l) {
+  free(l->A);
   l->A = NULL;
   l->nroElem = 0;
   l->MAX = 0;
@@ -140,6 +142,9 @@ bool excluirElemLista(LISTA* l, TIPOCHAVE ch) {
   if(pos == ERRO) return false; // não existe
   for(j = pos; j < l->nroElem-1; j++) l->A[j] = l->A[j+1];
   l->nroElem--;
+  if (l->nroElem <= l->MAX/2 || l->nroElem == l->MAX){
+    redimensionar(l);
+  }
   return true;
 } /* excluirElemLista */
 
@@ -151,13 +156,19 @@ bool excluirElemListaOrd(LISTA* l, TIPOCHAVE ch) {
   if(pos == ERRO) return false; // não existe
   for(j = pos; j < l->nroElem-1; j++) l->A[j] = l->A[j+1];
   l->nroElem--;
+  if (l->nroElem <= l->MAX/2 || l->nroElem == l->MAX){
+    redimensionar(l);
+  }
   return true;
 } /* excluirElemListaOrd */
 
 
 /* Inserção em lista ordenada usando busca binária permitindo duplicação */
 bool inserirElemListaOrd(LISTA* l, REGISTRO reg) {
-  if(l->nroElem >= l->MAX) return false; // lista cheia
+  if(l->nroElem > l->MAX) return false; // lista cheia
+  else if (l->nroElem == l->MAX){
+    redimensionar(l);
+  }
   int pos = l->nroElem;
   while(pos > 0 && l->A[pos-1].chave > reg.chave) {
     l->A[pos] = l->A[pos-1];
@@ -172,7 +183,10 @@ bool inserirElemListaOrd(LISTA* l, REGISTRO reg) {
 
 /* Inserção em lista ordenada usando busca binária sem duplicação */
 bool inserirElemListaOrdSemDup(LISTA* l, REGISTRO reg) {
-  if(l->nroElem >= l->MAX) return false; // lista cheia
+  if(l->nroElem > l->MAX) return false; // lista cheia
+  else if (l->nroElem == l->MAX){
+    redimensionar(l);
+  }
   int pos;
   pos = buscaBinaria(l,reg.chave);
   if(pos != ERRO) return false; // elemento já existe

@@ -8,62 +8,26 @@ int main() {
   // Inicializar a lista
   inicializarLista(&lista, 50);
   
+  //INSERINDO 50 ELEMENTOS
   for(int i = 0; i < 50; i++){
     reg.chave = i;
     inserirElemListaOrd(&lista, reg);
   }
   exibirLista(&lista);
+  printf("N de elementos da lista: %i.\n", tamanho(&lista));
+  printf("Tamanho alocado para lista: %i.\n", tamanho_maximo(&lista));
 
-  /*
-  // Exibir lista vazia
-  exibirLista(&lista);
-  printf("Numero de elementos na lista: %i.\n", tamanho(&lista));
-  printf("Numero maximo de elementos possiveis da lista: %i.\n", tamanho_maximo(&lista));
-  printf("Tamanho da lista (em bytes): %i.\n", tamanhoEmBytes(&lista));
-
-  // Inserir elementos na lista
-  reg.chave = 9;
+  //INSERINDO MAIS UM ELEMENTO - LISTA SERÁ REALOCADA (PARA 100)
+  reg.chave = 50;
   inserirElemListaOrd(&lista, reg);
-  reg.chave = 3;
-  inserirElemListaOrd(&lista, reg);
-  reg.chave = 4;
-  inserirElemListaOrd(&lista, reg);
-  reg.chave = 1;
-  inserirElemListaOrd(&lista, reg);
-  reg.chave = 12;
-  inserirElemListaOrd(&lista, reg);
+  printf("N de elementos da lista: %i.\n", tamanho(&lista));
+  printf("Tamanho alocado para lista: %i.\n", tamanho_maximo(&lista));
 
-  // Exibir lista após inserções
-  exibirLista(&lista);
-  printf("Numero de elementos na lista: %i.\n", tamanho(&lista));
-  printf("Tamanho da lista (em bytes): %i.\n", tamanhoEmBytes(&lista));
+  //REMOVENDO METADE DOS ELEMENTOS - LISTA SERÁ REALOCADA (PARA 50)
+  excluirElemLista(&lista, 50);
+  printf("N de elementos da lista: %i.\n", tamanho(&lista));
+  printf("Tamanho alocado para lista: %i.\n", tamanho_maximo(&lista));
 
-  // Buscar um elemento na lista
-  int pos = buscaSequencial(&lista, 4);
-  printf("Chave 4 encontrada na posicao: %i do arranjo A.\n", pos);
-  
-  pos = buscaBinaria(&lista, 4);
-  printf("Chave 4 encontrada na posicao: %i do arranjo A.\n", pos);
-  
-  pos = buscaSentinela(&lista, 4);
-  printf("Chave 4 encontrada na posicao: %i do arranjo A.\n", pos);
-
-  // Excluir alguns elementos da lista
-  if (excluirElemLista(&lista, 4)) printf("Exclusao bem sucedida: 4.\n");
-  if (excluirElemLista(&lista, 8)) printf("Exclusao bem sucedida: 8 (não existe na lista).\n");
-  if (excluirElemLista(&lista, 9)) printf("Exclusao bem sucedida: 9.\n");
-
-  // Exibir lista após exclusões
-  exibirLista(&lista);
-  printf("Numero de elementos na lista: %i.\n", tamanho(&lista));
-  printf("Tamanho da lista (em bytes): %i.\n", tamanhoEmBytes(&lista));
-
-  // Reinicializar a lista
-  reinicializarLista(&lista);
-  exibirLista(&lista);
-  printf("Numero de elementos na lista: %i.\n", tamanho(&lista));
-  printf("Tamanho da lista (em bytes): %i.\n", tamanhoEmBytes(&lista));
-  */
 
   return 0;
 }
