@@ -142,7 +142,7 @@ bool excluirElemLista(LISTA* l, TIPOCHAVE ch) {
   if(pos == ERRO) return false; // não existe
   for(j = pos; j < l->nroElem-1; j++) l->A[j] = l->A[j+1];
   l->nroElem--;
-  if (l->nroElem <= l->MAX/2 || l->nroElem == l->MAX){
+  if (l->nroElem <= l->MAX/4 || l->nroElem == l->MAX){
     redimensionar(l);
   }
   return true;
@@ -156,7 +156,7 @@ bool excluirElemListaOrd(LISTA* l, TIPOCHAVE ch) {
   if(pos == ERRO) return false; // não existe
   for(j = pos; j < l->nroElem-1; j++) l->A[j] = l->A[j+1];
   l->nroElem--;
-  if (l->nroElem <= l->MAX/2 || l->nroElem == l->MAX){
+  if (l->nroElem <= l->MAX/4 || l->nroElem == l->MAX){
     redimensionar(l);
   }
   return true;

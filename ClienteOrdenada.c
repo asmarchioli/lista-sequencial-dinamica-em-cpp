@@ -24,7 +24,10 @@ int main() {
   printf("Tamanho alocado para lista: %i.\n", tamanho_maximo(&lista));
 
   //REMOVENDO METADE DOS ELEMENTOS - LISTA SERÁ REALOCADA (PARA 50)
-  excluirElemLista(&lista, 50);
+  for(int i = 50; i > 24; i--){
+    reg.chave = i;
+    excluirElemLista(&lista, i);
+  }
   printf("N de elementos da lista: %i.\n", tamanho(&lista));
   printf("Tamanho alocado para lista: %i.\n", tamanho_maximo(&lista));
 
